@@ -1,0 +1,57 @@
+---------mcm by dp--------
+def matrix_chain_order(p):
+    n = len(p) - 1  # Number of matrices
+
+    # Create a table to store the results of subproblems
+    m = [[0] * n for _ in range(n)]
+
+    # Fill the table using bottom-up dynamic programming
+    for length in range(2, n + 1):
+        for i in range(n - length + 1):
+            j = i + length - 1
+            m[i][j] = float('inf')
+            for k in range(i, j):
+                cost = m[i][k] + m[k + 1][j] + p[i] * p[k + 1] * p[j + 1]
+                if cost < m[i][j]:
+                    m[i][j] = cost
+
+    return m[0][n - 1]
+
+# Example usage
+matrix_dimensions = [10, 30, 5, 60]
+min_multiplications = matrix_chain_order(matrix_dimensions)
+print(f"The minimum number of multiplications is {min_multiplications}")
+
+
+
+
+---------integer multiplication--------
+def karatsuba_multiply(x, y):
+    if x < 10 or y < 10:
+        return x * y
+
+    # Calculate the size of the numbers
+    size = max(len(str(x)), len(str(y)))
+    half_size = size // 2
+
+    # Split the numbers into halves
+    a = x // (10 ** half_size)
+    b = x % (10 ** half_size)
+    c = y // (10 ** half_size)
+    d = y % (10 ** half_size)
+
+    # Recursively compute three products
+    ac = karatsuba_multiply(a, c)
+    bd = karatsuba_multiply(b, d)
+    ad_bc = karatsuba_multiply((a + b), (c + d)) - ac - bd
+
+    # Combine the results using the Karatsuba formula
+    result = ac * (10 ** (2 * half_size)) + ad_bc * (10 ** half_size) + bd
+
+    return result
+
+# Example usage
+num1 = 1234
+num2 = 5678
+product = karatsuba_multiply(num1, num2)
+print(f"The product of {num1} and {num2} is {product}")
