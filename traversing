@@ -1,0 +1,62 @@
+
+
+------------bfs-------------
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()  # To keep track of visited nodes
+    queue = deque([start])
+
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            print(node, end=" ")  # Process the node
+            visited.add(node)
+            queue.extend(graph[node] - visited)
+
+# Example usage
+# Representing a graph as an adjacency list
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F', 'G'},
+    'D': {'B'},
+    'E': {'B', 'H'},
+    'F': {'C'},
+    'G': {'C'},
+    'H': {'E'}
+}
+
+start_node = 'A'
+print("BFS traversal starting from node", start_node)
+bfs(graph, start_node)
+
+
+
+
+
+----------dfs---------
+def dfs(graph, node, visited):
+    if node not in visited:
+        print(node, end=" ")  # Process the node
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(graph, neighbor, visited)
+
+# Example usage
+# Representing a graph as an adjacency list
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F', 'G'],
+    'D': ['B'],
+    'E': ['B', 'H'],
+    'F': ['C'],
+    'G': ['C'],
+    'H': ['E']
+}
+
+start_node = 'A'
+visited_nodes = set()
+print("DFS traversal starting from node", start_node)
+dfs(graph, start_node, visited_nodes)
