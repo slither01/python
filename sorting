@@ -30,3 +30,87 @@ print(arr)
 
 
 
+
+
+
+--------bubble sort-----------
+def bubble(arr):
+    indexinglength = len(arr) - 1
+    sorted = False
+
+    while not sorted:
+        sorted = True
+        for i in range (0, indexinglength):
+            if arr[i] > arr[i+1]:
+                sorted = False
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+    return arr
+print (bubble([4, 6, 2, 8, 9, 3]))
+
+
+
+-----------merge sort------------
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+
+        # Merge the two halves
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Check if any elements are left
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+    return arr
+
+# Example usage
+arr = [4, 6, 2, 8, 9, 3]
+sorted_arr = merge_sort(arr.copy())
+print(sorted_arr)
+
+
+
+
+
+
+
+----------quick sort-----------
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        less_than_pivot = [x for x in arr[1:] if x <= pivot]
+        greater_than_pivot = [x for x in arr[1:] if x > pivot]
+
+        return quick_sort(less_than_pivot) + [pivot] + quick_sort(greater_than_pivot)
+
+# Example usage
+arr = [4, 6, 2, 8, 9, 3]
+sorted_arr = quick_sort(arr.copy())
+print(sorted_arr)
+
+
+
+
